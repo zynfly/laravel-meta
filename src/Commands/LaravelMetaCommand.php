@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Zynfly\LaravelMeta\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelMetaCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-meta';
 
     public $description = 'My command';
 
