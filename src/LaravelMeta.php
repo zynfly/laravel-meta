@@ -9,7 +9,7 @@ class LaravelMeta
 {
     public function createMetaTableFor(string $table, $foreignKey = null)
     {
-        $foreignKey = $foreignKey ?? Str::singular($table) . '_id';
+        $foreignKey = $foreignKey ?? Str::singular($table).'_id';
         Schema::create("{$table}_meta", function ($table) use ($foreignKey) {
             $table->id();
             $table->bigInteger($foreignKey);
@@ -18,7 +18,6 @@ class LaravelMeta
             $table->timestamps();
         });
     }
-
 
     public function dropMetaTableFor(string $tableName)
     {

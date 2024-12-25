@@ -3,7 +3,6 @@
 namespace Zynfly\LaravelMeta\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Meta extends Model
 {

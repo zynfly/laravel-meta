@@ -10,6 +10,7 @@ trait HasMetaTable
     protected static $columns = [];
 
     protected $dirtyMeta = [];
+
     protected $insertMeta = [];
 
     /**
@@ -17,7 +18,7 @@ trait HasMetaTable
      *
      * @return void
      */
-    static protected function bootHasMetaTable()
+    protected static function bootHasMetaTable()
     {
         static::$columns = Schema::getColumnListing((new static)->getTable());
 
@@ -34,7 +35,6 @@ trait HasMetaTable
         });
     }
 
-
     public function updateMeta()
     {
         $foreignKey = $this->getForeignKey();
@@ -44,10 +44,10 @@ trait HasMetaTable
             $this->meta()->updateOrCreate(
                 [
                     $foreignKey => $this->$localKey,
-                    'key' => $key
+                    'key' => $key,
                 ],
                 [
-                    'value' => $value
+                    'value' => $value,
                 ]
             );
         }
@@ -64,7 +64,7 @@ trait HasMetaTable
             $createData[] = [
                 $foreignKey => $this->$localKey,
                 'key' => $key,
-                'value' => $value
+                'value' => $value,
             ];
         }
 
@@ -79,8 +79,7 @@ trait HasMetaTable
         $this->meta()->where($foreignKey, $this->$localKey)->delete();
     }
 
-
-    static public function getColumns()
+    public static function getColumns()
     {
         return static::$columns;
     }
@@ -97,7 +96,7 @@ trait HasMetaTable
         // move the dirty attributes to the meta array
         $this->dirtyMeta = [];
         foreach ($dirty as $key => $value) {
-            if (!in_array($key, $columns)) {
+            if (! in_array($key, $columns)) {
                 $this->dirtyMeta[$key] = $value;
                 unset($dirty[$key]);
             }
@@ -111,11 +110,12 @@ trait HasMetaTable
         $attributes = $this->getAttributes();
         $columns = static::getColumns();
         foreach ($attributes as $key => $value) {
-            if (!in_array($key, $columns)) {
+            if (! in_array($key, $columns)) {
                 $this->insertMeta[$key] = $value;
                 unset($attributes[$key]);
             }
         }
+
         return $attributes;
     }
 
@@ -125,14 +125,16 @@ trait HasMetaTable
         if (in_array($key, $columns)) {
             return parent::isFillable($key);
         }
+
         return true;
     }
 
     protected function fillableFromArray(array $attributes)
     {
-        if (count($this->getFillable()) > 0 && !static::$unguarded) {
+        if (count($this->getFillable()) > 0 && ! static::$unguarded) {
             $columns = static::getColumns();
             $nonFillableColumns = array_diff($columns, $this->fillable);
+
             return array_diff_key($attributes, array_flip($nonFillableColumns));
         }
 
@@ -149,6 +151,7 @@ trait HasMetaTable
         if ($attr) {
             $this->fill([$key => $attr]);
         }
+
         return $attr;
     }
 
@@ -160,16 +163,15 @@ trait HasMetaTable
 
         $instance = $this->newRelatedInstance(Meta::class);
 
-        $instance->setTable($this->getTable() . '_meta');
+        $instance->setTable($this->getTable().'_meta');
 
         $instance->setForeignKey($foreignKey);
 
         return $this->newHasMany(
             $instance->newQuery(),
             $this,
-            $instance->getTable() . '.' . $foreignKey,
+            $instance->getTable().'.'.$foreignKey,
             $localKey
         );
     }
-
 }
