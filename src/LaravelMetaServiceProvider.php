@@ -16,10 +16,8 @@ class LaravelMetaServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('laravel-meta')
+            ->name('meta')
             ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel_meta_table')
             ->hasCommand(LaravelMetaCommand::class);
     }
 }
