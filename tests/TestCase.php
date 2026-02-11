@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Zynfly\\LaravelMeta\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'Zynfly\\LaravelMeta\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
@@ -36,6 +36,6 @@ class TestCase extends Orchestra
 
     protected function defineDatabaseMigrations()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../workbench/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../workbench/database/migrations');
     }
 }
