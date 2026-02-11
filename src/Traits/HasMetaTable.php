@@ -227,8 +227,6 @@ trait HasMetaTable
 
     /**
      * Remove one or more meta entries by key.
-     *
-     * @param  string|array  $keys
      */
     public function removeMeta(string|array $keys): static
     {
@@ -352,13 +350,13 @@ trait HasMetaTable
         $localKey = $this->getKeyName();
 
         $instance = $this->newRelatedInstance(Meta::class);
-        $instance->setTable($this->getTable() . '_meta');
+        $instance->setTable($this->getTable().'_meta');
         $instance->setForeignKey($foreignKey);
 
         return $this->newHasMany(
             $instance->newQuery(),
             $this,
-            $instance->getTable() . '.' . $foreignKey,
+            $instance->getTable().'.'.$foreignKey,
             $localKey
         );
     }

@@ -15,7 +15,7 @@ class LaravelMeta
      */
     public function createMetaTableFor(string $table, ?string $foreignKey = null): void
     {
-        $foreignKey = $foreignKey ?? Str::singular($table) . '_id';
+        $foreignKey = $foreignKey ?? Str::singular($table).'_id';
 
         $valueColumnType = config('meta.value_column_type', 'text');
 

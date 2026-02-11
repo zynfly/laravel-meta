@@ -14,14 +14,14 @@ class LaravelMetaCommand extends Command
     public function handle(): int
     {
         $table = $this->argument('table');
-        $foreignKey = $this->option('foreign-key') ?? Str::singular($table) . '_id';
+        $foreignKey = $this->option('foreign-key') ?? Str::singular($table).'_id';
 
-        $migrationName = 'create_' . $table . '_meta_table';
-        $fileName = date('Y_m_d_His') . '_' . $migrationName . '.php';
+        $migrationName = 'create_'.$table.'_meta_table';
+        $fileName = date('Y_m_d_His').'_'.$migrationName.'.php';
 
         $stub = $this->buildStub($table, $foreignKey);
 
-        $path = database_path('migrations/' . $fileName);
+        $path = database_path('migrations/'.$fileName);
         file_put_contents($path, $stub);
 
         $this->info("Migration [{$path}] created successfully.");
